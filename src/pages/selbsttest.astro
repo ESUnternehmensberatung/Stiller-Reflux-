@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import SelfTest from '../components/SelfTest.astro';
+import RedFlags from '../components/RedFlags.astro';
+---
+
+<Base
+  title="Selbsttest: Habe ich stillen Reflux?"
+  description="Kostenloser Selbsttest mit neun Fragen, angelehnt an den Reflux Symptom Index (RSI). In zwei Minuten einschätzen, ob stiller Reflux hinter deinen Beschwerden stecken kann."
+>
+  <header class="head">
+    <div class="wrap">
+      <h1>Selbsttest: Kann es stiller Reflux sein?</h1>
+      <p class="lead">
+        Neun Fragen, zwei Minuten. Der Test ist angelehnt an den Reflux Symptom Index, den HNO-Ärzte weltweit nutzen.
+        Er ersetzt keine Untersuchung, aber er gibt dir eine Zahl, mit der du zum Arzt gehen kannst.
+      </p>
+    </div>
+  </header>
+  <div class="wrap body">
+    <SelfTest />
+    <div class="after">
+      <RedFlags compact />
+      <p class="src">
+        Grundlage: Belafsky PC, Postma GN, Koufman JA. Validity and reliability of the Reflux Symptom Index (RSI).
+        Journal of Voice 2002. Deutsche Formulierung von mir, nicht offiziell validiert.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .head {
+    padding-block: var(--space-xl) var(--space-l);
+  }
+  .head h1 {
+    max-width: 16ch;
+  }
+  .head .lead {
+    margin-top: var(--space-m);
+  }
+  .body {
+    padding-bottom: var(--space-xl);
+  }
+  .after {
+    margin-top: var(--space-xl);
+    max-width: 48rem;
+  }
+  .src {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+</style>

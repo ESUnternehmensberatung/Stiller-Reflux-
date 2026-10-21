@@ -1,0 +1,37 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<aside class:list={['note note-alert flags', { compact }]} aria-labelledby="warnzeichen">
+  <h2 id="warnzeichen">Diese Warnzeichen gehören sofort zum Arzt</h2>
+  <p>Stiller Reflux ist harmlos verglichen mit dem, was ähnliche Beschwerden auch auslösen kann. Lass abklären, wenn:</p>
+  <ul>
+    <li>Heiserkeit länger als drei Wochen anhält, besonders wenn du rauchst oder geraucht hast</li>
+    <li>Schlucken zunehmend schwerer fällt oder Essen stecken bleibt</li>
+    <li>du ungewollt abnimmst</li>
+    <li>du Blut hustest oder erbrichst, oder der Stuhl schwarz ist</li>
+    <li>du Atemnot hast, ein Knoten am Hals tastbar ist oder Schmerzen bis ins Ohr ziehen</li>
+  </ul>
+</aside>
+
+<style>
+  .flags ul {
+    padding-left: 1.2em;
+    margin: 0.5em 0 0;
+  }
+  .flags li + li {
+    margin-top: 0.3em;
+  }
+  .flags li::marker {
+    color: var(--acid);
+  }
+  .flags h2 {
+    color: var(--acid);
+  }
+  .compact {
+    font-size: var(--step--1);
+  }
+</style>

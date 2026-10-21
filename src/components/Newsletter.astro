@@ -1,0 +1,106 @@
+---
+import { site } from '../config';
+---
+
+<section class="newsletter on-field" aria-labelledby="nl-title">
+  <div class="wrap nl-grid">
+    <div>
+      <h2 id="nl-title">Die Einkaufsliste für die ersten 30 Tage</h2>
+      <p class="nl-lead">
+        Alles, was ich in der säurearmen Startphase gegessen habe, sortiert nach Supermarkt-Regal. Dazu einmal im Monat
+        ein Brief mit dem, was ich Neues gelernt habe. Kein Spam, jederzeit abbestellbar.
+      </p>
+    </div>
+    {
+      site.newsletterAction ? (
+        <form class="nl-form" method="post" action={site.newsletterAction}>
+          <label for="nl-email">E-Mail-Adresse</label>
+          <div class="nl-row">
+            <input id="nl-email" name="email" type="email" required autocomplete="email" placeholder="du@beispiel.de" />
+            <button class="btn btn-primary" type="submit">
+              Liste anfordern
+            </button>
+          </div>
+          <p class="nl-legal">
+            Mit dem Absenden willigst du in den Versand ein. Details in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+          </p>
+        </form>
+      ) : (
+        <div class="nl-form">
+          <p class="nl-soon">
+            Die Liste ist in Arbeit. Bis dahin findest du die wichtigsten Lebensmittel im{' '}
+            <a href="/ernaehrung/">Lebensmittel-Check</a>.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .newsletter {
+    background: var(--field);
+    color: var(--field-ink);
+    padding-block: var(--space-xl);
+    position: relative;
+  }
+  .newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    background: var(--ph-strip);
+  }
+  .nl-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-l);
+    align-items: end;
+  }
+  .nl-lead {
+    margin-top: var(--space-m);
+    color: var(--field-ink-2);
+    max-width: 52ch;
+  }
+  .nl-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .nl-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .nl-row input {
+    flex: 1 1 14rem;
+    min-height: 3rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid color-mix(in oklab, var(--field-ink) 35%, transparent);
+    background: color-mix(in oklab, var(--field-ink) 8%, transparent);
+    color: var(--field-ink);
+    font: inherit;
+  }
+  .nl-row input::placeholder {
+    color: var(--field-ink-2);
+  }
+  .nl-legal,
+  .nl-soon {
+    margin-top: 0.75rem;
+    font-size: var(--step--1);
+    color: var(--field-ink-2);
+  }
+  .nl-soon {
+    font-size: var(--step-0);
+  }
+  .newsletter a {
+    color: var(--field-ink);
+    font-weight: 700;
+  }
+  @media (max-width: 48rem) {
+    .nl-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

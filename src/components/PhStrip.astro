@@ -1,0 +1,176 @@
+---
+import { foods, pos, mid, formatPh } from '../data/foods';
+
+const heroFoods = foods.filter((f) => f.hero);
+const ticks = [2, 3, 4, 6, 7, 8, 9];
+---
+
+<figure class="ph" aria-labelledby="ph-caption">
+  <div class="ph-scale">
+    <ul class="ph-row top">
+      {
+        heroFoods
+          .filter((f) => f.hero === 'top')
+          .map((f) => (
+            <li class:list={['ph-food', { 'desktop-only': !f.heroMobile, start: pos(mid(f)) < 8 }]} style={`--x:${pos(mid(f))}%`}>
+              <span class="ph-name">{f.name}</span>
+              <span class="ph-val">pH {formatPh(f.ph)}</span>
+            </li>
+          ))
+      }
+    </ul>
+    <div class="ph-bar" role="img" aria-label="pH-Skala von 2, sehr sauer, bis 9, basisch. Markierung bei pH 5.">
+      {
+        ticks.map((t) => (
+          <span class="ph-tick" style={`--x:${pos(t)}%`} aria-hidden="true">
+            {t}
+          </span>
+        ))
+      }
+      <span class="ph-threshold" style={`--x:${pos(5)}%`} aria-hidden="true"><span>5</span></span>
+    </div>
+    <ul class="ph-row bottom">
+      {
+        heroFoods
+          .filter((f) => f.hero === 'bottom')
+          .map((f) => (
+            <li class:list={['ph-food', { 'desktop-only': !f.heroMobile, start: pos(mid(f)) < 8 }]} style={`--x:${pos(mid(f))}%`}>
+              <span class="ph-name">{f.name}</span>
+              <span class="ph-val">pH {formatPh(f.ph)}</span>
+            </li>
+          ))
+      }
+    </ul>
+  </div>
+  <figcaption id="ph-caption">
+    <span class="threshold-key" aria-hidden="true"></span>
+    Unter pH 5 wird Pepsin, das sich beim stillen Reflux in der Halsschleimhaut festsetzt, deutlich aktiver. Darum
+    beginnt die säurearme Reflux-Ernährung rechts dieser Linie.
+    <a href="/ernaehrung/">Alle Lebensmittel im Check</a>
+  </figcaption>
+</figure>
+
+<style>
+  .ph {
+    margin: 0;
+  }
+  .ph-scale {
+    padding-inline: 0.2rem;
+  }
+  .ph-row {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 3.4rem;
+  }
+  .ph-food {
+    position: absolute;
+    left: var(--x);
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+  .top .ph-food {
+    bottom: 0;
+  }
+  .bottom .ph-food {
+    top: 0;
+  }
+  .ph-food.start {
+    transform: translateX(-0.5rem);
+    align-items: flex-start;
+    text-align: left;
+  }
+  .ph-food.start::after {
+    margin-left: 0.4rem;
+  }
+  .ph-food::after {
+    content: '';
+    width: 2px;
+    height: 0.8rem;
+    margin-top: 0.25rem;
+    background: currentColor;
+    opacity: 0.55;
+  }
+  .bottom .ph-food::after {
+    order: -1;
+    margin: 0 0 0.25rem;
+  }
+  .ph-name {
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+  .ph-val {
+    font-size: 0.78rem;
+    opacity: 0.82;
+    font-variant-numeric: tabular-nums;
+  }
+  .ph-bar {
+    position: relative;
+    height: 2.6rem;
+    border-radius: 6px;
+    background: var(--ph-strip);
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.14),
+      0 14px 28px -16px rgb(0 0 0 / 0.7);
+  }
+  .ph-tick {
+    position: absolute;
+    left: var(--x);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font: 700 0.8rem/1 var(--font-body);
+    font-variant-numeric: tabular-nums;
+    color: rgb(0 0 0 / 0.55);
+  }
+  .ph-tick:first-child {
+    transform: translate(10%, -50%);
+  }
+  .ph-tick:nth-last-child(2) {
+    /* pH 9 am rechten Rand */
+    transform: translate(-110%, -50%);
+    color: rgb(255 255 255 / 0.85);
+  }
+  .ph-threshold {
+    position: absolute;
+    left: var(--x);
+    top: -0.7rem;
+    bottom: -0.7rem;
+    border-left: 2px dashed currentColor;
+  }
+  .ph-threshold span {
+    position: absolute;
+    top: 50%;
+    left: 0.3rem;
+    transform: translateY(-50%);
+    font: 700 0.8rem/1 var(--font-body);
+    color: rgb(0 0 0 / 0.6);
+  }
+  figcaption {
+    margin-top: 1.4rem;
+    max-width: 60ch;
+    font-size: var(--step--1);
+    line-height: 1.55;
+  }
+  .threshold-key {
+    display: inline-block;
+    width: 1.4rem;
+    border-top: 2px dashed currentColor;
+    vertical-align: middle;
+    margin-right: 0.35rem;
+  }
+  figcaption a {
+    color: inherit;
+    font-weight: 700;
+  }
+  @media (max-width: 40rem) {
+    .desktop-only {
+      display: none;
+    }
+  }
+</style>

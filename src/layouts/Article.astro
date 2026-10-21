@@ -1,0 +1,98 @@
+---
+import Base from './Base.astro';
+import { site } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  lead: string;
+  updated: string; // ISO-Datum
+  sources?: { label: string; url: string }[];
+}
+
+const { title, description, lead, updated, sources = [] } = Astro.props;
+const updatedLabel = new Date(updated).toLocaleDateString('de-DE', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Base title={title} description={description}>
+  <article>
+    <header class="article-head">
+      <div class="wrap">
+        <h1>{title}</h1>
+        <p class="lead">{lead}</p>
+        <p class="meta">
+          {site.author ? `Von ${site.author}, selbst betroffen` : 'Von einem Betroffenen'} · Aktualisiert am <time datetime={updated}>{updatedLabel}</time>
+        </p>
+      </div>
+    </header>
+    <div class="wrap article-body">
+      <div class="prose">
+        <slot />
+      </div>
+      {
+        sources.length > 0 && (
+          <section class="sources prose" aria-labelledby="quellen">
+            <h2 id="quellen">Quellen und weiterführende Literatur</h2>
+            <ol>
+              {sources.map((s) => (
+                <li>
+                  <a href={s.url} rel="noopener" target="_blank">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+      <p class="disclaimer">
+        Dieser Artikel beschreibt persönliche Erfahrungen und den aktuellen Wissensstand. Er ersetzt keine Diagnose und
+        keine Behandlung. Bei anhaltenden Beschwerden gehört die Abklärung zum HNO-Arzt oder Gastroenterologen.
+      </p>
+    </div>
+  </article>
+  <slot name="after" />
+</Base>
+
+<style>
+  .article-head {
+    padding-block: var(--space-xl) var(--space-l);
+    background:
+      linear-gradient(var(--ground), var(--ground)) padding-box,
+      var(--ph-strip) border-box;
+    border-bottom: 6px solid transparent;
+  }
+  .article-head h1 {
+    font-size: var(--step-4);
+    max-width: 18ch;
+  }
+  .article-head .lead {
+    margin-top: var(--space-m);
+  }
+  .meta {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+  .article-body {
+    padding-block: var(--space-l) var(--space-xl);
+  }
+  .sources {
+    margin-top: var(--space-xl);
+    font-size: var(--step--1);
+  }
+  .sources h2 {
+    font-size: var(--step-1);
+    margin-top: 0;
+  }
+  .disclaimer {
+    margin-top: var(--space-l);
+    max-width: var(--measure);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+</style>

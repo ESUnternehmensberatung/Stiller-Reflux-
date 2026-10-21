@@ -1,0 +1,82 @@
+---
+import Article from '../layouts/Article.astro';
+import FoodChecker from '../components/FoodChecker.astro';
+
+const pubmed = (q: string) => `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(q)}`;
+const sources = [
+  { label: 'FDA / CFSAN: Approximate pH of Foods and Food Products', url: pubmed('approximate pH of foods and food products') },
+  { label: 'Koufman JA: Low-Acid Diet (Merkblatt, PDF, englisch)', url: 'https://jamiekoufman.com/wp-content/uploads/2022/10/Low-Acid-Diet.pdf' },
+  { label: 'Zalvan CH et al. (2017): Mediterranean-style diet and alkaline water vs PPI for LPR', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5710251/' },
+  { label: 'TU München: Ernährungsempfehlung bei Refluxkrankheit (PDF)', url: 'https://www.mri.tum.de/sites/default/files/2023-07/refluxkrankheit_ernaehrungsempfehlung_bei_sodbrennen.pdf' },
+];
+---
+
+<Article
+  title="Ernährung bei stillem Reflux"
+  description="Säurearme Ernährung bei stillem Reflux: Lebensmittel mit pH-Werten im Check, die 4-Wochen-Startphase, typische Auslöser und ein Beispieltag."
+  lead="Bei stillem Reflux zählt nicht nur, was aus dem Magen kommt, sondern auch, was von oben in den Hals gelangt. Hier findest du die pH-Werte gängiger Lebensmittel, meine Startphase und die Auslöser, die trotz gutem pH-Wert Probleme machen."
+  updated="2026-10-21"
+  sources={sources}
+>
+  <h2>Lebensmittel-Check</h2>
+  <p>
+    Suche ein Lebensmittel oder filtere nach Kategorie. Der Balken zeigt, wo der pH-Wert auf der Skala von 2 bis 9
+    liegt. Ab pH 5 gilt ein Lebensmittel als säurearm.
+  </p>
+  <div class="wide checker-wrap">
+    <FoodChecker />
+  </div>
+
+  <h2>Die Startphase: vier Wochen streng</h2>
+  <p>
+    In den ersten vier Wochen esse und trinke ich nur, was einen pH-Wert von 5 oder mehr hat und keinen bekannten
+    Trigger mitbringt. Das gibt der Schleimhaut Zeit, sich zu beruhigen. Danach nehme ich jede Woche ein bis zwei
+    Lebensmittel wieder auf und notiere, wie mein Hals am nächsten Morgen reagiert.
+  </p>
+
+  <h2>Auslöser trotz gutem pH-Wert</h2>
+  <p>Manche Lebensmittel sind nicht besonders sauer, lösen aber trotzdem Reflux aus, weil sie den Schließmuskel am Mageneingang entspannen oder den Magen lange belasten:</p>
+  <ul>
+    <li><strong>Kaffee und schwarzer Tee</strong>: Koffein</li>
+    <li><strong>Schokolade</strong>: Fett und anregende Inhaltsstoffe</li>
+    <li><strong>Pfefferminze</strong>, auch als Tee: entspannt den Schließmuskel</li>
+    <li><strong>Alkohol</strong>, besonders Wein und Sekt</li>
+    <li><strong>Kohlensäure</strong>: bläht den Magen und drückt nach oben</li>
+    <li><strong>Fettes und Frittiertes</strong>: verweilt lange im Magen</li>
+    <li><strong>Scharfe Gewürze, rohe Zwiebeln und Knoblauch</strong>: reizen bei vielen Betroffenen</li>
+  </ul>
+
+  <h2>Ein Beispieltag aus meiner Startphase</h2>
+  <table>
+    <thead>
+      <tr><th scope="col">Mahlzeit</th><th scope="col">Was ich esse</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Frühstück</td><td>Haferbrei mit fettarmer Milch oder Haferdrink, dazu Banane in Scheiben</td></tr>
+      <tr><td>Zwischendurch</td><td>Honigmelone oder eine Handvoll Mandeln</td></tr>
+      <tr><td>Mittag</td><td>Reis mit gedünsteter Hähnchenbrust, Brokkoli und Karotten, Kräuter statt scharfer Gewürze</td></tr>
+      <tr><td>Nachmittag</td><td>Vollkornbrot mit magerer Putenbrust und Gurke</td></tr>
+      <tr><td>Abend, spätestens drei Stunden vor dem Schlafen</td><td>Ofenkartoffeln mit Weißfisch und Zucchini</td></tr>
+      <tr><td>Getränke</td><td>Stilles Wasser, hydrogencarbonatreiches Heilwasser, Kamillentee</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Banane liegt mit pH 4,5 bis 5,2 an der Grenze. Reife Bananen vertrage ich gut, grüne weniger. Genau solche
+    Feinheiten findest du nur durch Ausprobieren heraus.
+  </p>
+
+  <aside class="note note-evidence">
+    <h3>Ehrlich eingeordnet</h3>
+    <p>
+      Eine allgemeingültige Reflux-Diät gibt es nicht, jeder reagiert anders. Die säurearme Ernährung ist ein guter
+      Startpunkt, weil sie die häufigsten Reizfaktoren auf einmal entfernt. Was du langfristig wieder essen kannst,
+      zeigt dir dein eigener Hals.
+    </p>
+  </aside>
+</Article>
+
+<style>
+  .checker-wrap {
+    margin-block: var(--space-l);
+  }
+</style>

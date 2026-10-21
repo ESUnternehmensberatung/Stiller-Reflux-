@@ -1,0 +1,342 @@
+---
+import Base from '../layouts/Base.astro';
+import PhStrip from '../components/PhStrip.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { site } from '../config';
+
+const misreads = [
+  { symptom: 'Ständiges Räuspern', label: 'Angewohnheit, Nervosität' },
+  { symptom: 'Kloß im Hals', label: 'Stress, Psyche' },
+  { symptom: 'Chronischer Husten', label: 'Asthma, Infekt' },
+  { symptom: 'Schleim im Rachen', label: 'Allergie, Nebenhöhlen' },
+  { symptom: 'Heiserkeit', label: 'Stimme überlastet' },
+  { symptom: 'Brennen im Hals', label: 'Erkältung, die nicht weggeht' },
+];
+
+const pillars = [
+  {
+    title: 'Säurearm essen',
+    text: 'Vier Wochen nur Lebensmittel ab pH 5, danach behutsam erweitern. Der größte Hebel in meinem Alltag.',
+    href: '/ernaehrung/',
+  },
+  {
+    title: 'Abnehmen',
+    text: 'Jedes Kilo weniger nimmt Druck vom Bauch und damit vom Magen. Bei mir war das spürbar.',
+    href: '/mein-konzept/#gewicht',
+  },
+  {
+    title: 'Erhöht schlafen',
+    text: 'Keilkissen oder ein höher gestelltes Kopfende. Nachts ist der Hals am schutzlosesten.',
+    href: '/mein-konzept/#schlaf',
+  },
+  {
+    title: 'Früh zu Abend essen',
+    text: 'Drei Stunden zwischen letzter Mahlzeit und Bett. Klingt banal, verändert die Nächte.',
+    href: '/mein-konzept/#rhythmus',
+  },
+  {
+    title: 'Rückfälle ernst nehmen',
+    text: 'Wenn ich schludere, kommt es zurück. Das ist kein Scheitern, sondern das Messinstrument.',
+    href: '/rueckfaelle/',
+  },
+];
+---
+
+<Base title={site.name}>
+  <section class="hero on-field">
+    <div class="wrap">
+      <h1>Räuspern, Kloß im Hals, Heiserkeit. Aber kein Sodbrennen?</h1>
+      <div class="hero-copy">
+        <p class="hero-lead">
+          Dann kann es stiller Reflux sein. Ich habe ihn seit meiner Geburt und habe viele Jahre und etliche
+          Fehldiagnosen gebraucht, bis ihn jemand erkannt hat. Hier steht alles, was ich seitdem gelernt habe.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/selbsttest/">Selbsttest machen, 2 Minuten</a>
+          <a class="btn btn-ghost" href="/meine-geschichte/">Meine Geschichte</a>
+        </div>
+      </div>
+      <div class="hero-strip">
+        <PhStrip />
+      </div>
+    </div>
+  </section>
+
+  <section class="section misreads" aria-labelledby="misreads-title">
+    <div class="wrap mis-grid">
+      <div class="mis-intro">
+        <h2 id="misreads-title">Die Beschwerden zeigen in jede Richtung, nur nicht zum Magen.</h2>
+        <p>
+          Beim stillen Reflux steigt Magensaft bis in Rachen und Kehlkopf. Die Speiseröhre merkt davon oft nichts,
+          deshalb fehlt das typische Sodbrennen. Ärzte suchen dann an der falschen Stelle, und Betroffene hören über
+          Jahre Erklärungen wie diese:
+        </p>
+        <a class="more" href="/erkennen/">Woran du stillen Reflux erkennst</a>
+      </div>
+      <dl class="mis-list">
+        {
+          misreads.map((m) => (
+            <div>
+              <dt>{m.symptom}</dt>
+              <dd>
+                <span class="visually-hidden">Häufig gedeutet als: </span>„{m.label}“
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="story" aria-labelledby="story-title">
+    <div class="wrap story-grid">
+      <blockquote>
+        <p>
+          „Die Therapie lautete: ein Leben lang Pantoprazol. Ich wollte verstehen, warum mein Körper so reagiert, und
+          selbst etwas ändern.“
+        </p>
+      </blockquote>
+      <div class="story-copy">
+        <h2 id="story-title">Wie ich nach Jahren endlich eine Diagnose bekam</h2>
+        <p>
+          Ein HNO-Arzt war der Erste, der an stillen Reflux dachte. Die Magenspiegelung brachte Gewissheit. Danach
+          habe ich mir mein eigenes Konzept erarbeitet, mit Ernährung, Gewicht und Schlaf. Und ich erzähle auch, was
+          passiert, wenn ich mich nicht daran halte.
+        </p>
+        <a class="btn btn-ghost" href="/meine-geschichte/">Die ganze Geschichte lesen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pillars" aria-labelledby="pillars-title">
+    <div class="wrap">
+      <div class="pillars-head">
+        <h2 id="pillars-title">Fünf Dinge, die bei mir den Unterschied machen</h2>
+        <p>
+          Kein Wundermittel, sondern ein Alltag, der dem Hals Ruhe gibt. Bei jedem Baustein zeige ich dir, wie gut er
+          wissenschaftlich belegt ist.
+        </p>
+      </div>
+      <ul class="pillar-list">
+        {
+          pillars.map((p) => (
+            <li>
+              <a href={p.href}>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+                <svg class="arrow" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section honest" aria-labelledby="honest-title">
+    <div class="wrap honest-grid">
+      <h2 id="honest-title">Warum diese Seite mit Ärzten arbeitet, nicht gegen sie</h2>
+      <div class="prose">
+        <p>
+          Ohne den HNO-Arzt hätte ich meine Diagnose nie bekommen. Was mir gefehlt hat, war das Danach: Was esse ich,
+          wie schlafe ich, was mache ich, wenn es wieder schlimmer wird? Diese Lücke will ich füllen.
+        </p>
+        <p>
+          Ich schreibe als Betroffener, nicht als Arzt. Ich nenne meine Quellen, sage dir, wo die Studienlage dünn ist,
+          und rate dir, verordnete Medikamente nie auf eigene Faust abzusetzen.
+        </p>
+        <p><a href="/haftungsausschluss/">Wie ich mit Werbung und Empfehlungen umgehe</a></p>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</Base>
+
+<style>
+  .hero {
+    background: var(--field);
+    color: var(--field-ink);
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+  .hero h1 {
+    max-width: 17ch;
+    font-size: clamp(2.5rem, 1.6rem + 4vw, 5.2rem);
+  }
+  .hero-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) auto;
+    gap: var(--space-m) var(--space-l);
+    align-items: end;
+    margin-top: var(--space-l);
+  }
+  .hero-lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--field-ink-2);
+    max-width: 50ch;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .hero-strip {
+    margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+
+  .mis-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--space-l) var(--space-xl);
+    align-items: start;
+  }
+  .mis-intro {
+    position: sticky;
+    top: 6rem;
+  }
+  .mis-intro p {
+    margin-top: var(--space-m);
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .more {
+    display: inline-block;
+    margin-top: var(--space-m);
+    font-weight: 700;
+  }
+  .mis-list {
+    margin: 0;
+  }
+  .mis-list div {
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .mis-list div:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .mis-list dt {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .mis-list dd {
+    margin: 0.2rem 0 0;
+    color: var(--acid);
+    font-size: var(--step-0);
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+  }
+
+  .story {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+    padding-block: var(--space-xl);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--space-l) var(--space-xl);
+    align-items: center;
+  }
+  .story blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+  .story-copy h2 {
+    font-size: var(--step-2);
+  }
+  .story-copy p {
+    margin-block: var(--space-m);
+    color: var(--ink-2);
+  }
+
+  .pillars-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-m) var(--space-xl);
+    align-items: end;
+  }
+  .pillars-head p {
+    color: var(--ink-2);
+    max-width: 48ch;
+  }
+  .pillar-list {
+    list-style: none;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+  }
+  .pillar-list a {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1fr) 2fr auto;
+    gap: 0.4rem var(--space-l);
+    align-items: center;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-out);
+  }
+  .pillar-list li:first-child a {
+    border-top: 2px solid var(--ink);
+  }
+  .pillar-list h3 {
+    font-size: var(--step-2);
+  }
+  .pillar-list p {
+    color: var(--ink-2);
+    max-width: 55ch;
+  }
+  .arrow {
+    color: var(--accent);
+    transition: transform 220ms var(--ease-out);
+  }
+  @media (hover: hover) {
+    .pillar-list a:hover .arrow {
+      transform: translateX(6px);
+    }
+    .pillar-list a:hover h3 {
+      color: var(--accent);
+    }
+  }
+
+  .honest {
+    padding-top: 0;
+  }
+  .honest-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-m) var(--space-xl);
+  }
+  .honest h2 {
+    font-size: var(--step-2);
+  }
+
+  @media (max-width: 52rem) {
+    .hero-copy,
+    .mis-grid,
+    .story-grid,
+    .pillars-head,
+    .honest-grid {
+      grid-template-columns: 1fr;
+    }
+    .mis-intro {
+      position: static;
+    }
+    .pillar-list a {
+      grid-template-columns: 1fr auto;
+    }
+    .pillar-list p {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+</style>

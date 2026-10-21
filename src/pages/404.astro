@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Seite nicht gefunden">
+  <div class="wrap nf">
+    <h1>Diese Seite gibt es nicht.</h1>
+    <p class="lead">Vielleicht hilft dir einer dieser Einstiege weiter:</p>
+    <div class="links">
+      <a class="btn btn-primary" href="/selbsttest/">Selbsttest machen</a>
+      <a class="btn btn-ghost" href="/erkennen/">Stillen Reflux erkennen</a>
+      <a class="btn btn-ghost" href="/">Zur Startseite</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    padding-block: var(--space-xl);
+  }
+  .nf .lead {
+    margin-top: var(--space-m);
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: var(--space-l);
+  }
+</style>

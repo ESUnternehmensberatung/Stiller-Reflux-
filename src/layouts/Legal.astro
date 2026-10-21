@@ -1,0 +1,33 @@
+---
+import Base from './Base.astro';
+import { site } from '../config';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<Base title={title} description={`${title} von ${site.name}`}>
+  <div class="wrap legal">
+    <h1>{title}</h1>
+    <div class="prose">
+      <slot />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .legal {
+    padding-block: var(--space-xl);
+  }
+  .legal h1 {
+    font-size: var(--step-3);
+    margin-bottom: var(--space-l);
+  }
+  .legal :global(.todo) {
+    background: var(--warn-soft);
+    padding: 0 0.3em;
+    border-radius: 4px;
+  }
+</style>

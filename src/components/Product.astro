@@ -1,0 +1,82 @@
+---
+import { amazonSearch } from '../config';
+
+interface Props {
+  title: string;
+  query: string; // Amazon-Suchbegriff, bis konkrete Produkt-Links feststehen
+  url?: string; // konkreter Affiliate-Link, sobald vorhanden
+  why: string;
+  watch: string;
+  evidence: 'gut' | 'mittel' | 'gering';
+}
+
+const { title, query, url, why, watch, evidence } = Astro.props;
+const href = url ?? amazonSearch(query);
+const evidenceLabel = {
+  gut: 'Gut belegt',
+  mittel: 'Teilweise belegt',
+  gering: 'Erfahrungswert, kaum Studien',
+}[evidence];
+---
+
+<article class="product">
+  <div class="product-head">
+    <h3>{title}</h3>
+    <span class:list={['evidence', evidence]}>{evidenceLabel}</span>
+  </div>
+  <p><strong>Warum:</strong> {why}</p>
+  <p><strong>Worauf achten:</strong> {watch}</p>
+  <slot />
+  <a class="btn btn-ghost" href={href} rel="sponsored nofollow noopener" target="_blank">
+    Angebote ansehen
+    <span class="ad">Anzeige</span>
+  </a>
+</article>
+
+<style>
+  .product {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    padding-block: var(--space-m);
+    border-top: 2px solid var(--ink);
+  }
+  .product-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+  .evidence {
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+  .evidence.gut {
+    background: var(--ok-soft);
+    color: var(--ok);
+  }
+  .evidence.mittel {
+    background: var(--warn-soft);
+    color: var(--ink);
+  }
+  .evidence.gering {
+    background: color-mix(in oklab, var(--line) 50%, transparent);
+    color: var(--ink-2);
+  }
+  .btn {
+    justify-self: start;
+    margin-top: 0.4rem;
+    font-size: var(--step--1);
+    min-height: 2.75rem;
+  }
+  .ad {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    background: color-mix(in oklab, currentColor 12%, transparent);
+  }
+</style>

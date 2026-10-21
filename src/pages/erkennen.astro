@@ -1,0 +1,113 @@
+---
+import Article from '../layouts/Article.astro';
+import RedFlags from '../components/RedFlags.astro';
+
+const sources = [
+  { label: 'DocCheck Flexikon: Laryngopharyngeale Refluxkrankheit', url: 'https://flexikon.doccheck.com/de/Laryngopharyngealer_Reflux' },
+  { label: 'Pharmazeutische Zeitung: Beschwerden jenseits der Speiseröhre', url: 'https://www.pharmazeutische-zeitung.de/beschwerden-jenseits-der-speiseroehre-158021/' },
+  { label: 'Quarks: Stiller Reflux', url: 'https://www.quarks.de/?p=9916' },
+  { label: 'gesund.bund.de: Sodbrennen und Refluxkrankheit', url: 'https://gesund.bund.de/sodbrennen-refluxkrankheit' },
+  { label: 'Belafsky PC et al. (2002): Validity and reliability of the Reflux Symptom Index', url: 'https://augusta.elsevierpure.com/en/publications/validity-and-reliability-of-the-reflux-symptom-index-rsi/' },
+];
+---
+
+<Article
+  title="Wie erkenne ich stillen Reflux?"
+  description="Symptome, typische Fehldiagnosen und der Weg zur Diagnose: So erkennst du stillen Reflux (laryngopharyngealer Reflux, LPR) und bereitest dich auf den Arzttermin vor."
+  lead="Stiller Reflux versteckt sich hinter Beschwerden, die nach Erkältung, Allergie oder Stress aussehen. Hier erfährst du, welche Zeichen typisch sind, was sonst dahinterstecken kann und wie du zu einer echten Diagnose kommst."
+  updated="2026-10-21"
+  sources={sources}
+>
+  <h2>Was beim stillen Reflux passiert</h2>
+  <p>
+    Beim klassischen Reflux fließt Magensaft zurück in die Speiseröhre und brennt hinter dem Brustbein. Beim
+    <strong>stillen Reflux</strong>, in der Fachsprache <strong>laryngopharyngealer Reflux (LPR)</strong>, steigt er
+    weiter auf, bis in Kehlkopf und Rachen. Oft reicht schon ein feiner Nebel aus Säure, Gallensäuren und dem
+    Verdauungsenzym Pepsin.
+  </p>
+  <p>
+    Die Schleimhaut im Hals ist dafür nicht gebaut. Sie ist viel empfindlicher als die Speiseröhre, schon kleine
+    Mengen reizen sie. Weil die Speiseröhre selbst kaum etwas abbekommt, fehlt bei vielen Betroffenen das Sodbrennen.
+    Daher der Name: Der Reflux ist da, aber er meldet sich nicht dort, wo man ihn erwartet.
+  </p>
+
+  <h2>Die typischen Anzeichen</h2>
+  <ul>
+    <li><strong>Ständiges Räuspern</strong>, oft ohne dass wirklich etwas „im Hals“ ist</li>
+    <li><strong>Kloßgefühl</strong>, als würde etwas im Hals stecken (Globusgefühl)</li>
+    <li><strong>Heiserkeit</strong> oder eine Stimme, die schnell ermüdet, besonders morgens</li>
+    <li><strong>Chronischer Reizhusten</strong>, häufig nach dem Essen oder im Liegen</li>
+    <li><strong>Zäher Schleim</strong> im Rachen oder das Gefühl, dass Schleim aus der Nase nach hinten läuft</li>
+    <li><strong>Brennen oder Kratzen</strong> im Hals, das wie eine nie endende Erkältung wirkt</li>
+    <li>Schluckbeschwerden, saurer Geschmack, schlechter Atem</li>
+  </ul>
+  <p>
+    Kein einzelnes Zeichen beweist stillen Reflux. Auffällig wird es, wenn mehrere zusammenkommen und über Wochen
+    bleiben. Ein strukturierter Weg, das einzuschätzen, ist der
+    <a href="/selbsttest/">Selbsttest nach dem Reflux Symptom Index</a>.
+  </p>
+
+  <h2>Warum er so oft übersehen wird</h2>
+  <p>
+    Die Beschwerden sitzen im Hals, also landen Betroffene beim Hausarzt, beim HNO-Arzt, beim Allergologen oder beim
+    Lungenfacharzt. Jeder schaut in sein Fachgebiet. Am Ende stehen Diagnosen wie chronische Rachenentzündung,
+    Allergie, Asthma oder „psychisch bedingt“. Ich habe all das selbst gehört, über Jahre.
+  </p>
+  <blockquote>Wenn eine Behandlung nach der anderen nicht hilft, ist das ein Hinweis, dass die Ursache woanders liegt.</blockquote>
+  <p>
+    Das heißt nicht, dass die anderen Diagnosen immer falsch sind. Allergien, Nebenhöhlenprobleme, Asthma oder ein
+    Husten als Nebenwirkung von Blutdruckmitteln (ACE-Hemmer) können ähnliche Beschwerden machen. Gerade deshalb lohnt
+    sich eine gründliche Abklärung statt eines schnellen Rezepts.
+  </p>
+
+  <RedFlags />
+
+  <h2 id="diagnose">So kommst du zu einer echten Diagnose</h2>
+  <p>
+    Die beste erste Anlaufstelle ist meist ein <strong>HNO-Arzt</strong>. Bei mir war es genau dieser Schritt, der nach
+    Jahren die Wende brachte. Typisch ist dieser Ablauf:
+  </p>
+  <ol>
+    <li>
+      <strong>Gespräch und Fragebogen.</strong> Der Arzt fragt nach Beschwerden, Essgewohnheiten und Schlaf. Oft wird
+      der Reflux Symptom Index genutzt.
+    </li>
+    <li>
+      <strong>Blick in den Kehlkopf (Laryngoskopie).</strong> Mit einer kleinen Kamera sieht der HNO-Arzt, ob die
+      Schleimhaut gerötet oder geschwollen ist. Das dauert wenige Minuten.
+    </li>
+    <li>
+      <strong>Magenspiegelung (Gastroskopie).</strong> Sie zeigt, ob die Speiseröhre entzündet ist, ob ein
+      Zwerchfellbruch oder ein schwacher Schließmuskel vorliegt, und schließt andere Erkrankungen aus. Bei mir brachte
+      sie die Bestätigung. Wichtig: Eine unauffällige Spiegelung schließt stillen Reflux nicht aus.
+    </li>
+    <li>
+      <strong>24-Stunden-Messung (pH-Metrie und Impedanz).</strong> Eine dünne Sonde durch die Nase misst einen Tag
+      lang, wie oft und wie hoch Magensaft aufsteigt. Das ist der genaueste Nachweis, aber nicht überall verfügbar.
+    </li>
+    <li>
+      <strong>Therapieversuch.</strong> Manchmal wird zunächst behandelt und beobachtet, ob die Beschwerden nachlassen.
+    </li>
+  </ol>
+
+  <h2>So bereitest du deinen Arzttermin vor</h2>
+  <ul>
+    <li>Mach den <a href="/selbsttest/">Selbsttest</a> und nimm deinen Wert mit.</li>
+    <li>
+      Führe eine Woche lang ein kurzes Tagebuch: Was hast du gegessen, wann, und wie ging es deinem Hals danach und am
+      nächsten Morgen?
+    </li>
+    <li>Schreib auf, welche Diagnosen und Behandlungen es schon gab und was sie bewirkt haben.</li>
+    <li>
+      Frag direkt: „Kann ein laryngopharyngealer Reflux die Ursache sein, und wie können wir das prüfen?“ Der
+      Fachbegriff zeigt, dass du dich vorbereitet hast.
+    </li>
+  </ul>
+
+  <h2>Wie es nach der Diagnose weitergeht</h2>
+  <p>
+    Nach der Diagnose fängt die eigentliche Arbeit an. Was ich ausprobiert habe und was davon wirklich hilft, steht in
+    <a href="/mein-konzept/">meinem Konzept</a>. Wie ich überhaupt dahin gekommen bin, erzähle ich in
+    <a href="/meine-geschichte/">meiner Geschichte</a>.
+  </p>
+</Article>

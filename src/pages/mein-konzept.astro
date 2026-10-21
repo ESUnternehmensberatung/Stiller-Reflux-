@@ -1,0 +1,146 @@
+---
+import Article from '../layouts/Article.astro';
+import Product from '../components/Product.astro';
+
+const pubmed = (q: string) => `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(q)}`;
+const sources = [
+  { label: 'Koufman JA (2011): Low-acid diet for recalcitrant laryngopharyngeal reflux. Ann Otol Rhinol Laryngol', url: pubmed('Koufman low-acid diet recalcitrant laryngopharyngeal reflux 2011') },
+  { label: 'Zalvan CH et al. (2017): Mediterranean-style diet and alkaline water vs PPI for LPR. JAMA Otolaryngol Head Neck Surg', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5710251/' },
+  { label: 'Koufman JA, Johnston N (2012): Potential benefits of pH 8.8 alkaline drinking water. Ann Otol Rhinol Laryngol', url: pubmed('Koufman Johnston pH 8.8 alkaline drinking water pepsin 2012') },
+  { label: 'Ness-Jensen E et al. (2013): Weight loss and reduction in gastroesophageal reflux. Am J Gastroenterol', url: pubmed('Ness-Jensen weight loss reduction gastroesophageal reflux HUNT 2013') },
+  { label: 'Kaltenbach T et al. (2006): Are lifestyle measures effective in GERD? Arch Intern Med', url: pubmed('Kaltenbach lifestyle measures effective gastroesophageal reflux disease 2006') },
+  { label: 'Fujiwara Y et al. (2005): Dinner-to-bed time and GERD. Am J Gastroenterol', url: pubmed('Fujiwara dinner-to-bed time gastroesophageal reflux disease 2005') },
+  { label: 'Schuitenmaker JM et al. (2022): Sleep positional therapy for nocturnal GERD. Am J Gastroenterol', url: pubmed('Schuitenmaker sleep positional therapy nocturnal gastroesophageal reflux') },
+  { label: 'McGlashan JA et al. (2009): Alginate suspension in laryngopharyngeal reflux. Eur Arch Otorhinolaryngol', url: pubmed('McGlashan alginate laryngopharyngeal reflux randomized 2009') },
+  { label: 'Pharmazeutische Zeitung: Beschwerden jenseits der Speiseröhre (Heilwasser, Alginate)', url: 'https://www.pharmazeutische-zeitung.de/beschwerden-jenseits-der-speiseroehre-158021/' },
+];
+---
+
+<Article
+  title="Mein Konzept gegen stillen Reflux"
+  description="Säurearm essen, abnehmen, erhöht schlafen, früh zu Abend essen: Das Alltagskonzept eines Betroffenen gegen stillen Reflux, mit ehrlicher Einordnung der Studienlage."
+  lead="Fünf Bausteine, die bei mir zusammen den Unterschied machen. Zu jedem sage ich dir, was ich konkret mache und wie gut er wissenschaftlich belegt ist. Kein Baustein ist ein Wundermittel, zusammen sind sie stark."
+  updated="2026-10-21"
+  sources={sources}
+>
+  <h2 id="ernaehrung">Säurearm und basenbetont essen</h2>
+  <p>
+    Beim stillen Reflux setzt sich das Verdauungsenzym Pepsin in der Halsschleimhaut fest. Dort schläft es, bis Säure
+    es wieder aufweckt. Diese Säure kommt nicht nur von unten aus dem Magen, sondern auch von oben: mit jedem Schluck
+    Orangensaft, jeder Portion Ketchup, jedem Glas Wein.
+  </p>
+  <p>
+    Deshalb esse ich in einer <strong>Startphase von vier Wochen</strong> nur Lebensmittel mit einem pH-Wert von 5 oder
+    mehr. Danach nehme ich einzelne Lebensmittel nacheinander wieder auf und beobachte, wie mein Hals reagiert.
+  </p>
+  <h3>Was „basisch“ hier bedeutet, und was nicht</h3>
+  <p>
+    Bei „basischer Ernährung“ denken viele an das Konzept, den Säure-Basen-Haushalt des ganzen Körpers zu verändern.
+    Dafür gibt es wenig Belege. Mir geht es um etwas Einfacheres: <strong>Was meinen Hals berührt, soll wenig Säure
+    mitbringen.</strong> Das ist messbar, und dafür gibt es Studien.
+  </p>
+  <aside class="note note-evidence">
+    <h3>Studienlage: teilweise belegt</h3>
+    <p>
+      In einer kleinen Pilotstudie mit 20 Patienten, denen Säureblocker allein nicht halfen, besserten sich Beschwerden
+      und Befunde unter säurearmer Kost. Eine Auswertung von 184 Patienten fand mit mediterraner, pflanzenbetonter
+      Ernährung und alkalischem Wasser ähnliche Verbesserungen wie mit Säureblockern. Beides sind keine
+      randomisierten Studien, die Ergebnisse sind ermutigend, aber nicht endgültig.
+    </p>
+  </aside>
+  <p><a href="/ernaehrung/">Zum Lebensmittel-Check mit pH-Werten</a></p>
+
+  <h2 id="gewicht">Gewicht verlieren</h2>
+  <p>
+    Bauchfett drückt auf den Magen, und Druck schiebt Mageninhalt nach oben. Ich habe abgenommen, und mit jedem Kilo
+    wurde es ruhiger im Hals. Die säurearme Ernährung hat dabei geholfen, weil sie automatisch viel Gemüse und wenig
+    Fertigprodukte bedeutet.
+  </p>
+  <aside class="note note-ok">
+    <h3>Studienlage: gut belegt</h3>
+    <p>
+      In einer großen norwegischen Bevölkerungsstudie hatten Menschen, die abnahmen, deutlich seltener
+      Refluxbeschwerden, und zwar umso seltener, je mehr sie abnahmen. Die Studie betrifft klassischen Reflux, der
+      Mechanismus gilt aber auch für den stillen.
+    </p>
+  </aside>
+
+  <h2 id="schlaf">Erhöht schlafen</h2>
+  <p>
+    Im Liegen hilft die Schwerkraft nicht mehr mit. Ich schlafe deshalb mit erhöhtem Oberkörper. Wichtig ist, dass der
+    <strong>ganze Oberkörper</strong> schräg liegt, nicht nur der Kopf. Ein zusätzliches Kissen knickt nur den Hals ab
+    und kann den Druck auf den Bauch sogar erhöhen.
+  </p>
+  <p>Zwei Wege funktionieren:</p>
+  <ul>
+    <li><strong>Keilkissen</strong>, das vom Becken bis zum Kopf ansteigt, etwa 15 bis 20 Zentimeter hoch</li>
+    <li><strong>Bettfußerhöhungen</strong> unter den Kopfteil-Füßen des Bettes, um 15 bis 20 Zentimeter</li>
+  </ul>
+  <p>Zusätzlich hilft vielen das Schlafen auf der <strong>linken Seite</strong>. Dann liegt der Magen tiefer als die Speiseröhre.</p>
+  <aside class="note note-ok">
+    <h3>Studienlage: gut belegt für nächtlichen Reflux</h3>
+    <p>
+      Eine Übersichtsarbeit zu Lebensstilmaßnahmen fand die besten Belege für das Hochstellen des Kopfendes und für
+      Gewichtsabnahme. Eine neuere Studie zeigte weniger nächtlichen Reflux beim Schlafen auf der linken Seite.
+    </p>
+  </aside>
+  <div class="products">
+    <Product
+      title="Keilkissen für Reflux"
+      query="Keilkissen Reflux"
+      why="Hebt den ganzen Oberkörper an, ohne das Bett umzubauen. Für mich der einfachste Einstieg."
+      watch="Mindestens 15 cm Höhe, lange Schräge statt kurzer Rampe, fester Schaum, abnehmbarer waschbarer Bezug."
+      evidence="gut"
+    />
+  </div>
+
+  <h2 id="rhythmus">Früh und leicht zu Abend essen</h2>
+  <p>
+    Zwischen meiner letzten Mahlzeit und dem Schlafengehen liegen mindestens drei Stunden. Das Abendessen ist klein und
+    fettarm. Lieber fünf kleine Mahlzeiten am Tag als drei große, denn ein voller Magen drückt stärker nach oben.
+  </p>
+  <aside class="note note-ok">
+    <h3>Studienlage: gut belegt</h3>
+    <p>
+      In einer japanischen Studie hatten Menschen, die innerhalb von drei Stunden vor dem Schlafen aßen, ein deutlich
+      höheres Risiko für Refluxbeschwerden.
+    </p>
+  </aside>
+
+  <h2 id="rueckfaelle">Rückfälle als Messinstrument nutzen</h2>
+  <p>
+    Wenn ich mich nicht an meinen Plan halte, kommen die Beschwerden zurück. Das ist kein Scheitern, sondern wertvolle
+    Information: So weiß ich genau, was mir schadet. <a href="/rueckfaelle/">Wie ich mit Rückfällen umgehe</a>
+  </p>
+
+  <h2>Was mir zusätzlich hilft</h2>
+  <ul>
+    <li>
+      <strong>Hydrogencarbonatreiches Heilwasser</strong> (möglichst über 600, besser über 1.800 mg Hydrogencarbonat pro Liter) zwischen den
+      Mahlzeiten. Ein Experte in der Pharmazeutischen Zeitung empfiehlt es, die Studienlage ist aber dünn.
+    </li>
+    <li>
+      <strong>Alginat-Präparate</strong> nach dem Essen und vor dem Schlafen. Sie bilden eine Schaumschicht auf dem
+      Mageninhalt. Eine randomisierte Studie bei stillem Reflux zeigte Verbesserungen. Frag in der Apotheke nach
+      Wechselwirkungen.
+    </li>
+    <li><strong>Nicht räuspern</strong>, sondern schlucken oder einen Schluck Wasser trinken. Räuspern reizt den Kehlkopf zusätzlich.</li>
+    <li><strong>Lockere Kleidung</strong> um den Bauch, besonders nach dem Essen.</li>
+    <li><strong>Nicht rauchen.</strong> Rauch schwächt den Schließmuskel und reizt den Hals doppelt.</li>
+  </ul>
+
+  <aside class="note note-alert">
+    <h3>Und die Medikamente?</h3>
+    <p>
+      Dieses Konzept ersetzt keine ärztliche Behandlung. Wenn dir Medikamente verordnet wurden, sprich mit deinem Arzt,
+      bevor du etwas änderst. Ein Konzept wie meines kann eine Behandlung ergänzen und im besten Fall die nötige Dosis
+      senken, aber das entscheidest du gemeinsam mit deinem Arzt.
+    </p>
+  </aside>
+</Article>
+
+<style>
+  .products {
+    display: grid;
+  }
+</style>

@@ -1,0 +1,256 @@
+---
+// Angelehnt an den Reflux Symptom Index (RSI) nach Belafsky et al., J Voice 2002.
+// Freie deutsche Übersetzung, kein validiertes Diagnoseinstrument.
+const items = [
+  'Heiserkeit oder ein Problem mit der Stimme',
+  'Ständiges Räuspern',
+  'Zu viel Schleim im Hals oder Schleim, der hinten aus der Nase in den Rachen läuft',
+  'Schwierigkeiten beim Schlucken von Essen, Getränken oder Tabletten',
+  'Husten nach dem Essen oder nach dem Hinlegen',
+  'Atemprobleme oder Erstickungsanfälle',
+  'Lästiger, anhaltender Husten',
+  'Das Gefühl, dass etwas im Hals steckt (Kloß im Hals)',
+  'Sodbrennen, Brustschmerz, Verdauungsbeschwerden oder saures Aufstoßen',
+];
+const scale = [0, 1, 2, 3, 4, 5];
+---
+
+<form class="test" id="selbsttest" aria-describedby="test-intro">
+  <p id="test-intro" class="test-intro">
+    Wie stark haben dich diese Beschwerden <strong>im letzten Monat</strong> beeinträchtigt? 0 bedeutet gar nicht, 5
+    sehr stark.
+  </p>
+  <ol class="items">
+    {
+      items.map((text, i) => (
+        <li>
+          <fieldset>
+            <legend>{text}</legend>
+            <div class="scale">
+              {scale.map((v) => (
+                <label>
+                  <input type="radio" name={`q${i}`} value={v} required={v === 0} />
+                  <span>{v}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="result" aria-live="polite">
+    <div class="score">
+      <span class="score-label">Dein Wert</span>
+      <output name="sum" class="score-value">–</output>
+      <span class="score-max">von 45</span>
+    </div>
+    <div class="result-text" data-result>
+      <p>Beantworte alle neun Fragen, dann siehst du hier deine Auswertung.</p>
+    </div>
+  </div>
+  <p class="test-foot">
+    Deine Antworten bleiben in deinem Browser und werden nirgendwo gespeichert. Der Test stellt keine Diagnose, er hilft
+    dir, deine Beschwerden einzuordnen und mit deinem Arzt darüber zu sprechen.
+  </p>
+</form>
+
+<template id="tpl-high">
+  <h3>Dein Wert liegt über 13.</h3>
+  <p>
+    In Studien gilt ein Wert über 13 als Hinweis auf stillen Reflux. Das ist keine Diagnose, aber ein guter Grund,
+    dich beim <strong>HNO-Arzt</strong> untersuchen zu lassen. Nimm dein Ergebnis mit, und sprich gezielt an, ob ein
+    laryngopharyngealer Reflux die Ursache sein kann.
+  </p>
+  <p><a href="/erkennen/#diagnose">So läuft die Diagnose ab</a></p>
+</template>
+<template id="tpl-low">
+  <h3>Dein Wert liegt bei 13 oder darunter.</h3>
+  <p>
+    Das spricht eher gegen einen ausgeprägten stillen Reflux. Halten Heiserkeit, Husten oder Schluckbeschwerden trotzdem
+    an, lass sie ärztlich abklären. Viele andere Ursachen sind gut behandelbar.
+  </p>
+  <p><a href="/erkennen/">Was sonst dahinterstecken kann</a></p>
+</template>
+
+<script>
+  const form = document.getElementById('selbsttest') as HTMLFormElement | null;
+  if (form) {
+    const out = form.querySelector('output') as HTMLOutputElement;
+    const box = form.querySelector('[data-result]') as HTMLElement;
+    const resultWrap = form.querySelector('.result') as HTMLElement;
+    const count = form.querySelectorAll('fieldset').length;
+    const render = () => {
+      const data = new FormData(form);
+      let sum = 0;
+      let answered = 0;
+      for (let i = 0; i < count; i++) {
+        const v = data.get(`q${i}`);
+        if (v !== null) {
+          sum += Number(v);
+          answered++;
+        }
+      }
+      out.value = answered ? String(sum) : '–';
+      if (answered < count) {
+        box.innerHTML = `<p>Noch ${count - answered} von ${count} Fragen offen.</p>`;
+        resultWrap.dataset.state = 'open';
+        return;
+      }
+      const tpl = document.getElementById(sum > 13 ? 'tpl-high' : 'tpl-low') as HTMLTemplateElement;
+      box.replaceChildren(tpl.content.cloneNode(true));
+      resultWrap.dataset.state = sum > 13 ? 'high' : 'low';
+    };
+    form.addEventListener('change', render);
+    form.addEventListener('submit', (e) => e.preventDefault());
+  }
+</script>
+
+<style>
+  .test {
+    max-width: 48rem;
+  }
+  .test-intro {
+    font-size: var(--step-1);
+    max-width: 50ch;
+  }
+  .items {
+    list-style: none;
+    counter-reset: q;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+  }
+  .items li {
+    counter-increment: q;
+    padding-block: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+  }
+  legend {
+    float: left;
+    padding: 0;
+    font-weight: 700;
+  }
+  legend::before {
+    content: counter(q) '. ';
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .scale {
+    display: flex;
+    gap: 0.35rem;
+  }
+  .scale label {
+    position: relative;
+  }
+  .scale input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .scale span {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color 160ms var(--ease-out),
+      transform 160ms var(--ease-out),
+      border-color 160ms var(--ease-out);
+  }
+  .scale label:hover span {
+    border-color: var(--accent);
+  }
+  .scale input:active + span {
+    transform: scale(0.94);
+  }
+  .scale input:checked + span {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--ground);
+  }
+  .scale input:focus-visible + span {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .result {
+    position: sticky;
+    bottom: 0.75rem;
+    margin-top: var(--space-l);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem 2rem;
+    align-items: center;
+    padding: 1.2rem 1.4rem;
+    border-radius: var(--radius);
+    background: var(--field);
+    color: var(--field-ink);
+    box-shadow: 0 18px 40px -20px rgb(0 0 0 / 0.6);
+  }
+  .result[data-state='high'] .score-value {
+    color: var(--ph-4);
+  }
+  .result[data-state='low'] .score-value {
+    color: var(--ph-6);
+  }
+  .score {
+    display: grid;
+    justify-items: start;
+  }
+  .score-label,
+  .score-max {
+    font-size: var(--step--1);
+    color: var(--field-ink-2);
+  }
+  .score-value {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 760;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .result-text :global(h3) {
+    font-size: var(--step-1);
+    margin-bottom: 0.4rem;
+  }
+  .result-text :global(p + p) {
+    margin-top: 0.5rem;
+  }
+  .result-text :global(a) {
+    color: var(--field-ink);
+    font-weight: 700;
+  }
+  .test-foot {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+  @media (max-width: 40rem) {
+    fieldset {
+      grid-template-columns: 1fr;
+    }
+    .scale {
+      justify-content: space-between;
+    }
+    .result {
+      grid-template-columns: 1fr;
+      position: static;
+    }
+  }
+</style>

@@ -1,0 +1,284 @@
+---
+import { foods, pos, formatPh, verdict, verdictLabel } from '../data/foods';
+
+const sorted = [...foods].sort((a, b) => a.ph[0] - b.ph[0]);
+const filters = [
+  { id: 'alle', label: 'Alle' },
+  { id: 'saeurearm', label: 'Säurearm' },
+  { id: 'grenzwertig', label: 'Grenzwertig' },
+  { id: 'sauer', label: 'Sauer' },
+  { id: 'trigger', label: 'Mit Trigger' },
+];
+---
+
+<div class="checker" data-checker>
+  <div class="controls">
+    <label class="search">
+      <span class="visually-hidden">Lebensmittel suchen</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+        <path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      </svg>
+      <input type="search" placeholder="Lebensmittel suchen, z. B. Banane" data-search autocomplete="off" />
+    </label>
+    <div class="chips" role="group" aria-label="Filter">
+      {
+        filters.map((f, i) => (
+          <button type="button" class="chip" data-filter={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {f.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <ul class="list" data-list>
+    {
+      sorted.map((f) => {
+        const v = verdict(f);
+        return (
+          <li
+            data-name={f.name.toLowerCase()}
+            data-verdict={v}
+            data-trigger={f.trigger ? 'ja' : 'nein'}
+            class:list={['row', v]}
+          >
+            <div class="name">
+              <strong>{f.name}</strong>
+              <span class="group">{f.group}</span>
+            </div>
+            <div class="range" aria-hidden="true">
+              <span class="range-fill" style={`--a:${pos(f.ph[0])}%; --b:${pos(f.ph[1])}%`} />
+            </div>
+            <span class="phv">pH {formatPh(f.ph)}</span>
+            <span class="badge">{verdictLabel[v]}</span>
+            {f.trigger && (
+              <span class="trigger">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3 2.5 20h19L12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                  <path d="M12 10v4.5M12 17.2v.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                Trigger: {f.trigger}
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ul>
+  <p class="empty" data-empty hidden>
+    Dazu habe ich noch keinen Wert. Schreib mir, welches Lebensmittel fehlt, dann ergänze ich es.
+  </p>
+  <p class="foot">
+    Richtwerte nach der Lebensmittelliste der US-Lebensmittelbehörde FDA. Der pH-Wert schwankt mit Sorte, Reife und
+    Zubereitung. Der Wert ist nur die halbe Wahrheit: Auch säurearme Lebensmittel können über Fett, Koffein oder Alkohol
+    Reflux auslösen.
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-checker]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-search]')!;
+    const chips = root.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const rows = root.querySelectorAll<HTMLElement>('.row');
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+    let filter = 'alle';
+
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      rows.forEach((row) => {
+        const matchQ = !q || row.dataset.name!.includes(q);
+        const matchF =
+          filter === 'alle' ||
+          (filter === 'trigger' ? row.dataset.trigger === 'ja' : row.dataset.verdict === filter);
+        const show = matchQ && matchF;
+        row.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = visible > 0;
+    };
+
+    input.addEventListener('input', apply);
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        filter = chip.dataset.filter!;
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        apply();
+      }),
+    );
+  });
+</script>
+
+<style>
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    align-items: center;
+  }
+  .search {
+    position: relative;
+    flex: 1 1 18rem;
+    display: flex;
+    align-items: center;
+  }
+  .search svg {
+    position: absolute;
+    left: 0.9rem;
+    color: var(--ink-2);
+    pointer-events: none;
+  }
+  .search input {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.6rem 1rem 0.6rem 2.7rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+  }
+  .search input::placeholder {
+    color: var(--ink-2);
+  }
+  .search input:focus-visible {
+    border-color: var(--accent);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .chip {
+    min-height: 2.6rem;
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    font: 700 var(--step--1) / 1 var(--font-body);
+    cursor: pointer;
+    transition:
+      background-color 160ms var(--ease-out),
+      transform 160ms var(--ease-out);
+  }
+  .chip:hover {
+    border-color: var(--accent);
+  }
+  .chip:active {
+    transform: scale(0.96);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--ground);
+  }
+  .list {
+    list-style: none;
+    margin: var(--space-m) 0 0;
+    padding: 0;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(9rem, 1.1fr) minmax(8rem, 2fr) 6.5rem 7.5rem;
+    gap: 0.4rem 1.25rem;
+    align-items: center;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .row[hidden] {
+    display: none;
+  }
+  .name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+  .group {
+    font-size: 0.82rem;
+    color: var(--ink-2);
+  }
+  .range {
+    position: relative;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--line) 55%, transparent);
+  }
+  .range-fill {
+    position: absolute;
+    left: var(--a);
+    width: max(0.65rem, calc(var(--b) - var(--a)));
+    top: 0;
+    bottom: 0;
+    border-radius: 999px;
+  }
+  .row.sauer .range-fill {
+    background: var(--ph-3);
+  }
+  .row.grenzwertig .range-fill {
+    background: var(--ph-4);
+  }
+  .row.saeurearm .range-fill {
+    background: var(--ph-7);
+  }
+  .phv {
+    font-variant-numeric: tabular-nums;
+    font-size: var(--step--1);
+  }
+  .badge {
+    justify-self: start;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .sauer .badge {
+    background: var(--acid-soft);
+    color: var(--acid);
+  }
+  .grenzwertig .badge {
+    background: var(--warn-soft);
+    color: var(--ink);
+  }
+  .saeurearm .badge {
+    background: var(--ok-soft);
+    color: var(--ok);
+  }
+  .trigger {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    color: var(--acid);
+  }
+  .trigger svg {
+    flex: none;
+  }
+  .empty,
+  .foot {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+  @media (max-width: 40rem) {
+    .row {
+      grid-template-columns: 1fr auto;
+    }
+    .range {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+    .phv {
+      grid-row: 1;
+      grid-column: 2;
+      justify-self: end;
+    }
+    .badge {
+      grid-row: 3;
+      grid-column: 1;
+    }
+  }
+</style>

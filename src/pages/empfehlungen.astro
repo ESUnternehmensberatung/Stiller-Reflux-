@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import Product from '../components/Product.astro';
+---
+
+<Base
+  title="Empfehlungen bei stillem Reflux"
+  description="Keilkissen, Bettfußerhöhungen, Bücher und Hilfsmittel, die bei stillem Reflux im Alltag helfen. Mit ehrlicher Einordnung, worauf du achten solltest."
+>
+  <header class="head">
+    <div class="wrap">
+      <h1>Was mir im Alltag hilft</h1>
+      <p class="lead">
+        Hilfsmittel und Bücher, die ich selbst nutze oder genau geprüft habe. Zu jedem steht, warum ich es empfehle,
+        worauf du achten solltest und wie gut die Wirkung belegt ist.
+      </p>
+      <p class="disclosure">
+        <strong>Transparenz:</strong> Die Links auf dieser Seite sind Affiliate-Links und als „Anzeige“ markiert. Kaufst
+        du darüber ein, bekomme ich eine kleine Provision. Der Preis ändert sich für dich nicht, und meine Auswahl hängt
+        nicht davon ab. <a href="/haftungsausschluss/">Mehr dazu</a>
+      </p>
+    </div>
+  </header>
+
+  <section class="wrap group" aria-labelledby="schlafen">
+    <h2 id="schlafen">Schlafen</h2>
+    <div class="grid">
+      <Product
+        title="Keilkissen"
+        query="Keilkissen Reflux"
+        why="Hebt den ganzen Oberkörper an. Der einfachste Weg, nachts weniger Reflux zu haben."
+        watch="15 bis 20 cm Höhe, lange flache Schräge vom Becken an, fester Schaum, waschbarer Bezug."
+        evidence="gut"
+      />
+      <Product
+        title="Bettfußerhöhungen"
+        query="Betterhöhung Möbelerhöhung 15 cm"
+        why="Stellt das Kopfende des Bettes schräg. Ideal, wenn dich ein Keilkissen beim Schlafen stört."
+        watch="Für dein Bettgewicht zugelassen, rutschfest, passende Aufnahme für die Bettfüße. Nur das Kopfende erhöhen."
+        evidence="gut"
+      />
+    </div>
+  </section>
+
+  <section class="wrap group" aria-labelledby="lesen">
+    <h2 id="lesen">Lesen und kochen</h2>
+    <div class="grid">
+      <Product
+        title="Das hilft beim stillen Reflux"
+        query="Martin Storr Das hilft beim stillen Reflux"
+        why="Ratgeber eines Gastroenterologen, der sich gezielt dem stillen Reflux widmet. Gut, um die medizinische Seite zu verstehen."
+        watch="Ergänzt die Erfahrungen hier um die Sicht eines Facharztes."
+        evidence="mittel"
+      />
+      <Product
+        title="Säurearmes Kochbuch"
+        query="Kochbuch stiller Reflux säurearm"
+        why="Für Abwechslung in der Startphase. Die meisten Rezepte lassen sich mit dem Lebensmittel-Check auf dieser Seite gegenprüfen."
+        watch="Achte darauf, dass Tomaten, Zitrus und Essig nicht in jedem zweiten Rezept vorkommen. Leseprobe ansehen."
+        evidence="gering"
+      />
+    </div>
+  </section>
+
+  <section class="wrap group" aria-labelledby="messen">
+    <h2 id="messen">Messen und beobachten</h2>
+    <div class="grid">
+      <Product
+        title="pH-Teststreifen für Lebensmittel"
+        query="pH Teststreifen 0-14 Lebensmittel"
+        why="Wenn du wissen willst, wie sauer dein Getränk oder deine Soße wirklich ist. Gerade bei Fertigprodukten oft überraschend."
+        watch="Skala von mindestens 2 bis 9 in kleinen Schritten. Für Flüssigkeiten gedacht, nicht für den Körper."
+        evidence="gering"
+      />
+      <Product
+        title="Symptom-Tagebuch"
+        query="Ernährungstagebuch Symptomtagebuch"
+        why="Ein einfaches Heft genügt. Es macht Zusammenhänge sichtbar und ist Gold wert beim Arzttermin."
+        watch="Platz für Uhrzeit, Mahlzeit, Schlaf und Beschwerden am nächsten Morgen."
+        evidence="gering"
+      />
+    </div>
+  </section>
+
+  <section class="wrap group pharmacy" aria-labelledby="apotheke">
+    <h2 id="apotheke">Aus der Apotheke</h2>
+    <div class="prose">
+      <p>
+        <strong>Alginat-Präparate</strong> und <strong>hydrogencarbonatreiches Heilwasser</strong> nutzen viele
+        Betroffene, mehr dazu in <a href="/mein-konzept/">meinem Konzept</a>. Beides sind Arzneimittel oder
+        Medizinprodukte. Hier verlinke ich bewusst keine Produkte. Lass dich in der Apotheke beraten, besonders wenn du
+        andere Medikamente nimmst.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: var(--space-xl) var(--space-l);
+  }
+  .head h1 {
+    max-width: 14ch;
+  }
+  .head .lead {
+    margin-top: var(--space-m);
+  }
+  .disclosure {
+    margin-top: var(--space-m);
+    max-width: 62ch;
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: var(--step--1);
+  }
+  .group {
+    padding-bottom: var(--space-l);
+  }
+  .group h2 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-s);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--space-l);
+  }
+  .pharmacy {
+    padding-bottom: var(--space-xl);
+  }
+  @media (max-width: 48rem) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

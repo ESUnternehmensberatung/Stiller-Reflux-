@@ -1,0 +1,282 @@
+---
+import '../styles/global.css';
+import { site, nav } from '../config';
+import Logo from '../components/Logo.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const fullTitle = title === site.name ? `${site.name} – ${site.claim}` : `${title} | ${site.name}`;
+const path = Astro.url.pathname;
+const canonical = new URL(path, Astro.site);
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="de_DE" />
+    <meta name="theme-color" content="#0b4440" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label={`${site.name} – Startseite`}>
+          <Logo />
+          <span>{site.name}</span>
+        </a>
+        <nav aria-label="Hauptnavigation" class="nav-desktop">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <details class="nav-mobile">
+          <summary>
+            <span>Menü</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </summary>
+          <nav aria-label="Hauptnavigation mobil">
+            <ul>
+              {
+                nav.map((item) => (
+                  <li>
+                    <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="inhalt">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/">
+            <Logo />
+            <span>{site.name}</span>
+          </a>
+          <p>
+            Erfahrungen und recherchiertes Wissen eines Betroffenen. Diese Seite ersetzt keine ärztliche Untersuchung
+            und keine Behandlung. Setze verordnete Medikamente nie ohne Rücksprache ab.
+          </p>
+        </div>
+        <nav aria-label="Themen">
+          <h2>Themen</h2>
+          <ul>
+            {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            <li><a href="/rueckfaelle/">Rückfälle</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Rechtliches">
+          <h2>Rechtliches</h2>
+          <ul>
+            <li><a href="/impressum/">Impressum</a></li>
+            <li><a href="/datenschutz/">Datenschutz</a></li>
+            <li><a href="/haftungsausschluss/">Haftungsausschluss &amp; Werbung</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="wrap footer-legal">
+        <p>
+          Mit „Anzeige“ markierte Links sind Affiliate-Links. Kaufst du darüber ein, erhalte ich eine kleine Provision,
+          für dich ändert sich der Preis nicht. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.
+        </p>
+        <p>© {new Date().getFullYear()} {site.name}</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--ground) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-display);
+    font-weight: 760;
+    font-size: 1.3rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-desktop ul,
+  .nav-mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-desktop ul {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .nav-desktop a,
+  .nav-mobile a {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--step--1);
+    font-weight: 700;
+    transition: background-color 180ms var(--ease-out);
+  }
+  .nav-desktop a:hover {
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+  }
+  .nav-desktop a[aria-current='page'] {
+    background: var(--ink);
+    color: var(--ground);
+  }
+  .nav-mobile {
+    display: none;
+    position: relative;
+  }
+  .nav-mobile summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.9rem;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+  .nav-mobile summary::-webkit-details-marker {
+    display: none;
+  }
+  .nav-mobile nav {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    min-width: 15rem;
+    padding: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px -8px rgb(0 0 0 / 0.25);
+  }
+  .nav-mobile a {
+    font-size: var(--step-0);
+    border-radius: 6px;
+    padding: 0.7rem 0.8rem;
+  }
+  .nav-mobile a[aria-current='page'] {
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
+  }
+  @media (max-width: 62rem) {
+    .nav-desktop {
+      display: none;
+    }
+    .nav-mobile {
+      display: block;
+    }
+  }
+
+  .site-footer {
+    background: var(--field);
+    color: var(--field-ink);
+    padding-block: var(--space-l) var(--space-m);
+  }
+  .site-footer .brand {
+    color: var(--field-ink);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-l);
+  }
+  .footer-brand p {
+    margin-top: 0.8rem;
+    color: var(--field-ink-2);
+    max-width: 44ch;
+    font-size: var(--step--1);
+  }
+  .site-footer h2 {
+    font-size: var(--step-0);
+    margin-bottom: 0.6rem;
+  }
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--step--1);
+  }
+  .site-footer li + li {
+    margin-top: 0.35rem;
+  }
+  .site-footer a {
+    color: var(--field-ink);
+  }
+  .footer-legal {
+    margin-top: var(--space-l);
+    padding-top: var(--space-m);
+    border-top: 1px solid color-mix(in oklab, var(--field-ink) 20%, transparent);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: var(--step--1);
+    color: var(--field-ink-2);
+  }
+  .footer-legal p:first-child {
+    max-width: 70ch;
+  }
+  @media (max-width: 48rem) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+    .footer-legal {
+      flex-direction: column;
+    }
+  }
+</style>
