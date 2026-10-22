@@ -1,4 +1,4 @@
-# Halsklar – Leben mit stillem Reflux
+# stiller-reflux.de
 
 Statische Website (Astro) für Betroffene von stillem Reflux im DACH-Raum, finanziert über Affiliate-Links.
 
@@ -28,13 +28,13 @@ Wettbewerbsanalyse und Strategie: [`docs/wettbewerbsanalyse.md`](docs/wettbewerb
 
 ## Vor dem Livegang (offene Punkte)
 
-1. **Pseudonym** in `src/config.ts` → `author` eintragen. Es erscheint über jedem Artikel.
+1. **Pseudonym** „Cornelius van den Hoven“ ist in `src/config.ts` → `author` eingetragen.
    Der echte Name und eine ladungsfähige Anschrift müssen trotzdem ins Impressum (Pflicht nach § 5 DDG).
    Tipp: Eine Impressums-Adresse über einen Impressum-Service oder Coworking-Space hält die Privatadresse raus.
-2. **Domain** registrieren und in `astro.config.mjs` (`site`) eintragen. Markenname „Halsklar“ ist ein Arbeitstitel:
-   vorher Domain- und Markenverfügbarkeit (DPMA/EUIPO) prüfen.
+2. **Domain** stiller-reflux.de ist eingetragen. Produktname **„Reflux Reset“** (4-Wochen-Startphase, später
+   eigenes Produkt): vor dem Verkauf Markenrecherche bei DPMA/EUIPO, ggf. Wortmarke anmelden.
 3. **Impressum und Datenschutz** ausfüllen (gelb markierte Stellen) und rechtlich prüfen lassen.
-4. **Amazon-PartnerNet** beantragen, Tag in `src/config.ts` → `amazonTag` eintragen. Danach konkrete Produkte
+4. **Amazon-PartnerNet**: Tracking-ID in `src/config.ts` → `amazonTag` eintragen. Danach konkrete Produkte
    wählen und in `src/pages/empfehlungen.astro` je Produkt `url` setzen.
 5. **Newsletter-Anbieter** (z. B. Brevo, MailerLite, Double-Opt-in) einrichten und das Formular-Ziel in
    `src/config.ts` → `newsletterAction` eintragen. Erst dann erscheint das Anmeldeformular.
