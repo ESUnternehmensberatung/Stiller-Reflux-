@@ -1,17 +1,18 @@
 ---
-import { amazonSearch } from '../config';
+import { amazonProduct, amazonSearch } from '../config';
 
 interface Props {
   title: string;
-  query: string; // Amazon-Suchbegriff, bis konkrete Produkt-Links feststehen
-  url?: string; // konkreter Affiliate-Link, sobald vorhanden
+  query: string; // Amazon-Suchbegriff, solange keine ASIN feststeht
+  asin?: string; // geprüftes Amazon-Produkt, hat Vorrang vor der Suche
+  url?: string; // Affiliate-Link eines anderen Händlers
   why: string;
   watch: string;
   evidence: 'gut' | 'mittel' | 'gering';
 }
 
-const { title, query, url, why, watch, evidence } = Astro.props;
-const href = url ?? amazonSearch(query);
+const { title, query, asin, url, why, watch, evidence } = Astro.props;
+const href = url ?? (asin ? amazonProduct(asin) : amazonSearch(query));
 const evidenceLabel = {
   gut: 'Gut belegt',
   mittel: 'Teilweise belegt',

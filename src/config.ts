@@ -6,7 +6,7 @@ export const site = {
     'Stiller Reflux erkennen und im Alltag in den Griff bekommen: Selbsttest, Symptome, säurearme Ernährung, Schlaf und ehrliche Erfahrungen eines Betroffenen.',
   // Pseudonym, unter dem die Artikel erscheinen (z. B. „Jonas K.“). Leer = „Von einem Betroffenen“.
   // Der echte Name steht nur im Impressum, das ist in Deutschland Pflicht (§ 5 DDG).
-  author: 'Cornelius van den Hoven',
+  author: 'Cornelius v. d. Hoven',
   // Amazon-PartnerNet-Tag, z. B. "stillerreflux-21". Leer = Links ohne Tag.
   amazonTag: '',
   // Formular-Endpunkt des Newsletter-Anbieters (z. B. Brevo, MailerLite). Leer = Formular aus.
@@ -21,6 +21,13 @@ export const nav = [
   { href: '/ernaehrung/', label: 'Ernährung' },
   { href: '/empfehlungen/', label: 'Empfehlungen' },
 ];
+
+// Direktlink auf ein bestimmtes Produkt über seine ASIN (steht in der Amazon-URL nach /dp/).
+export function amazonProduct(asin: string) {
+  const url = new URL(`https://www.amazon.de/dp/${asin}`);
+  if (site.amazonTag) url.searchParams.set('tag', site.amazonTag);
+  return url.toString();
+}
 
 export function amazonSearch(query: string) {
   const url = new URL('https://www.amazon.de/s');
