@@ -1,0 +1,341 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+
+const p = site.product;
+
+const contents = [
+  {
+    title: 'Der 4-Wochen-Plan',
+    text: 'Woche für Woche, was du isst, trinkst und änderst. Mit den Regeln, die ich selbst befolgt habe, und dem Warum dahinter.',
+  },
+  {
+    title: 'Einkaufslisten pro Woche',
+    text: 'Sortiert nach Supermarkt-Regal, damit der Einkauf in zwanzig Minuten erledigt ist und nichts Saures im Wagen landet.',
+  },
+  {
+    title: 'Säurearme Rezepte',
+    text: 'Frühstück, Mittag, Abend und Snacks, alle ab pH 5 und ohne die typischen Trigger. Alltagstauglich, nicht Sterneküche.',
+  },
+  {
+    title: 'Die große Lebensmittelliste',
+    text: 'Mehr Lebensmittel als im Online-Check, mit pH-Werten und Trigger-Hinweisen, zum Ausdrucken für den Kühlschrank.',
+  },
+  {
+    title: 'Symptom-Tagebuch',
+    text: 'Vier Wochen zum Ausfüllen. Es zeigt dir deine persönlichen Auslöser und ist eine starke Grundlage für den Arzttermin.',
+  },
+  {
+    title: 'Nach dem Reset',
+    text: 'Wie du Lebensmittel Schritt für Schritt zurückholst, und mein Notfallplan, wenn es wieder schlimmer wird.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Ersetzt der Reflux Reset eine ärztliche Behandlung?',
+    a: 'Nein. Der Reset ist ein Ernährungs- und Alltagsplan aus meiner eigenen Erfahrung. Er ersetzt keine Diagnose und keine Behandlung. Lass Beschwerden immer ärztlich abklären, besonders bei Warnzeichen wie Heiserkeit über drei Wochen oder Schluckbeschwerden.',
+  },
+  {
+    q: 'Muss ich meine Medikamente absetzen?',
+    a: 'Nein, und bitte tu das nie auf eigene Faust. Der Reset lässt sich parallel zu einer Behandlung umsetzen. Ob und wie du Medikamente reduzierst, entscheidest du mit deinem Arzt.',
+  },
+  {
+    q: 'In welchem Format bekomme ich den Reset?',
+    a: 'Als PDF per E-Mail direkt nach der Bezahlung. Du kannst es am Handy lesen, am Rechner nutzen oder ausdrucken.',
+  },
+  {
+    q: 'Bekomme ich eine Rechnung?',
+    a: 'Ja, mit ausgewiesener Mehrwertsteuer, per E-Mail.',
+  },
+  {
+    q: 'Kann ich vom Kauf zurücktreten?',
+    a: 'Weil du das PDF sofort erhältst, erlischt dein Widerrufsrecht mit dem Download, wenn du dem bei der Bestellung ausdrücklich zustimmst. Details stehen in der Widerrufsbelehrung.',
+  },
+  {
+    q: 'Wie bezahle ich?',
+    a: 'Sicher über Stripe, zum Beispiel per Karte. Deine Zahlungsdaten sehe ich nie.',
+  },
+];
+---
+
+<Base
+  title={`${p.name}: der 4-Wochen-Plan bei stillem Reflux`}
+  description="Reflux Reset: der 4-Wochen-Plan eines Betroffenen bei stillem Reflux. Säurearme Rezepte, Einkaufslisten, Lebensmittelliste und Symptom-Tagebuch als PDF."
+>
+  <section class="hero on-field">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>{p.name}</h1>
+        <p class="hero-sub">Mein 4-Wochen-Plan bei stillem Reflux. Alles, was ich gerne am Tag meiner Diagnose gehabt hätte.</p>
+        <p class="hero-text">
+          Ein Plan, Einkaufslisten, Rezepte und ein Tagebuch, das dir zeigt, was deinem Hals guttut. Kein Rätselraten
+          mehr vor dem Kühlschrank.
+        </p>
+      </div>
+      <aside class="buy" aria-label="Bestellen">
+        <p class="price">{p.price}</p>
+        <p class="price-note">{p.priceNote} · einmalig</p>
+        <a class="btn btn-primary" href={p.checkoutUrl}>Jetzt bestellen</a>
+        <ul class="facts">
+          <li>Sofort als PDF per E-Mail</li>
+          <li>Sichere Zahlung über Stripe</li>
+          <li>Rechnung mit MwSt.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="inhalt-title">
+    <div class="wrap">
+      <h2 id="inhalt-title">Was im Reset steckt</h2>
+      <dl class="contents">
+        {
+          contents.map((c) => (
+            <div>
+              <dt>{c.title}</dt>
+              <dd>{c.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="why" aria-labelledby="why-title">
+    <div class="wrap why-grid">
+      <h2 id="why-title">Warum vier Wochen?</h2>
+      <div class="prose">
+        <p>
+          Die Halsschleimhaut braucht Zeit, um sich zu beruhigen. In den ersten Wochen lässt du deshalb konsequent alles
+          weg, was sauer ist oder den Schließmuskel am Magen entspannt. Danach holst du Lebensmittel einzeln zurück und
+          siehst genau, was du verträgst.
+        </p>
+        <p>
+          Dieser Ansatz lehnt sich an die säurearme Ernährung an, die in Studien mit Betroffenen untersucht wurde. Die
+          Studienlage ist ermutigend, aber noch nicht abschließend. <a href="/mein-konzept/">Mehr dazu in meinem Konzept</a>
+        </p>
+        <p>
+          Der Reset ist kein Wundermittel und verspricht keine Heilung. Er ist der strukturierte Weg, den ich mir über
+          Jahre selbst zusammensuchen musste.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq-wrap">
+      <h2 id="faq-title">Häufige Fragen</h2>
+      <div class="faq">
+        {
+          faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="close on-field" aria-labelledby="close-title">
+    <div class="wrap close-grid">
+      <h2 id="close-title">Starte deinen Reflux Reset</h2>
+      <div class="close-buy">
+        <p><strong>{p.price}</strong> {p.priceNote}, sofort als PDF.</p>
+        <a class="btn btn-primary" href={p.checkoutUrl}>Jetzt bestellen</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background: var(--field);
+    color: var(--field-ink);
+    padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
+    position: relative;
+  }
+  .hero::after,
+  .close::before {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 6px;
+    background: var(--ph-strip);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    gap: var(--space-l) var(--space-xl);
+    align-items: end;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 2rem + 5vw, 6rem);
+  }
+  .hero-sub {
+    margin-top: var(--space-m);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    max-width: 26ch;
+  }
+  .hero-text {
+    margin-top: var(--space-m);
+    color: var(--field-ink-2);
+    max-width: 50ch;
+  }
+  .buy {
+    padding: var(--space-m) clamp(1.2rem, 3vw, 1.8rem) var(--space-l);
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--field-ink) 8%, transparent);
+    border: 1px solid color-mix(in oklab, var(--field-ink) 22%, transparent);
+  }
+  .price {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 760;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .price-note {
+    margin-top: 0.4rem;
+    color: var(--field-ink-2);
+    font-size: var(--step--1);
+  }
+  .buy .btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space-m);
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-m) 0 0;
+    font-size: var(--step--1);
+    color: var(--field-ink-2);
+  }
+  .facts li + li {
+    margin-top: 0.3rem;
+  }
+  .facts li::before {
+    content: '';
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.55rem;
+    border-radius: 2px;
+    background: var(--ph-6);
+    vertical-align: middle;
+  }
+
+  .contents {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-l) var(--space-l);
+    margin: var(--space-l) 0 0;
+  }
+  .contents div {
+    border-top: 2px solid var(--ink);
+    padding-top: var(--space-s);
+  }
+  .contents dt {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .contents dd {
+    margin: 0.5rem 0 0;
+    color: var(--ink-2);
+  }
+
+  .why {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+    padding-block: var(--space-xl);
+  }
+  .why-grid,
+  .faq-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: var(--space-m) var(--space-xl);
+  }
+
+  .faq details {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq details:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: '+';
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 200ms var(--ease-out);
+  }
+  .faq details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq p {
+    padding-bottom: 1.2rem;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+
+  .close {
+    position: relative;
+    background: var(--field);
+    color: var(--field-ink);
+    padding-block: var(--space-xl);
+  }
+  .close::before {
+    inset: 0 0 auto;
+  }
+  .close-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-m);
+  }
+  .close-buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  @media (max-width: 56rem) {
+    .hero-grid,
+    .why-grid,
+    .faq-wrap {
+      grid-template-columns: 1fr;
+    }
+    .contents {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 36rem) {
+    .contents {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

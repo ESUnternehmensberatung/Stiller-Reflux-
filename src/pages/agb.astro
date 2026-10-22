@@ -1,0 +1,61 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../config';
+---
+
+<Legal title="Allgemeine Geschäftsbedingungen">
+  <p>
+    Vorlage, vor dem Verkaufsstart rechtlich prüfen lassen (Anwalt oder Rechtstexte-Dienst). Gelb markierte Stellen
+    ergänzen.
+  </p>
+  <h2>§ 1 Geltungsbereich</h2>
+  <p>
+    Diese AGB gelten für alle Bestellungen digitaler Produkte über stiller-reflux.de zwischen
+    <span class="todo">Name, Anschrift laut Impressum</span> (nachfolgend „Anbieter“) und den Kunden.
+  </p>
+  <h2>§ 2 Vertragsgegenstand</h2>
+  <p>
+    Gegenstand des Vertrags ist der digitale Ratgeber „{site.product.name}“ im PDF-Format. Er enthält persönliche
+    Erfahrungen und allgemeine Informationen zu Ernährung und Lebensstil. Er ist keine medizinische Beratung und ersetzt
+    keine ärztliche Diagnose oder Behandlung.
+  </p>
+  <h2>§ 3 Vertragsschluss</h2>
+  <p>
+    Die Darstellung des Produkts auf der Website ist kein bindendes Angebot. Mit dem Klick auf „Zahlungspflichtig
+    bestellen“ gibst du ein verbindliches Angebot ab. Der Vertrag kommt zustande, wenn die Zahlung erfolgreich
+    abgeschlossen ist und wir dir die Bestellbestätigung per E-Mail senden.
+  </p>
+  <h2>§ 4 Preise und Zahlung</h2>
+  <p>
+    Es gilt der zum Zeitpunkt der Bestellung angegebene Preis von {site.product.price} {site.product.priceNote}. Die
+    Zahlung erfolgt über den Zahlungsdienstleister Stripe.
+  </p>
+  <h2>§ 5 Lieferung</h2>
+  <p>
+    Der Ratgeber wird nach Zahlungseingang per E-Mail als Download bereitgestellt. Kommt die E-Mail nicht an, melde dich
+    unter <span class="todo">E-Mail-Adresse</span>.
+  </p>
+  <h2>§ 6 Nutzungsrechte</h2>
+  <p>
+    Du erhältst ein einfaches, nicht übertragbares Recht, den Ratgeber für private Zwecke zu nutzen und auszudrucken.
+    Weitergabe, Veröffentlichung und Weiterverkauf sind nicht gestattet.
+  </p>
+  <h2>§ 7 Widerrufsrecht</h2>
+  <p>Verbrauchern steht ein Widerrufsrecht nach Maßgabe der <a href="/widerruf/">Widerrufsbelehrung</a> zu.</p>
+  <h2>§ 8 Haftung</h2>
+  <p>
+    Der Anbieter haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder
+    Gesundheit. Im Übrigen haftet er nur bei Verletzung wesentlicher Vertragspflichten, begrenzt auf den
+    vertragstypischen, vorhersehbaren Schaden. Für den Erfolg der beschriebenen Maßnahmen wird keine Gewähr übernommen.
+  </p>
+  <h2>§ 9 Streitbeilegung</h2>
+  <p>
+    Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+    Verbraucherschlichtungsstelle teilzunehmen.
+  </p>
+  <h2>§ 10 Schlussbestimmungen</h2>
+  <p>
+    Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Zwingende Verbraucherschutzvorschriften des Staates, in
+    dem du deinen gewöhnlichen Aufenthalt hast, bleiben unberührt.
+  </p>
+</Legal>

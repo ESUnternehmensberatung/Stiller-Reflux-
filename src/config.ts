@@ -11,6 +11,13 @@ export const site = {
   amazonTag: '',
   // Formular-Endpunkt des Newsletter-Anbieters (z. B. Brevo, MailerLite). Leer = Formular aus.
   newsletterAction: '',
+  // Eigenes Produkt
+  product: {
+    name: 'Reflux Reset',
+    price: '37 €',
+    priceNote: 'inkl. 19 % MwSt.',
+    checkoutUrl: 'https://form.jotform.com/262942745364061',
+  },
 };
 
 export const nav = [

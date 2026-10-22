@@ -47,6 +47,19 @@ Wettbewerbsanalyse und Strategie: [`docs/wettbewerbsanalyse.md`](docs/wettbewerb
 8. **Fotos**: ein persönliches Bild (darf anonym sein, z. B. Hände beim Kochen, Keilkissen im Schlafzimmer) und
    eigene Fotos von Gerichten machen die Seite deutlich glaubwürdiger.
 
+## Reflux Reset (eigenes Produkt)
+
+- Verkaufsseite: `/reflux-reset/`, Preis und Checkout-Link in `src/config.ts` → `product`
+- Checkout: Jotform-Formular „Reflux Reset – Bestellung“ mit Stripe-Zahlungsfeld
+- Vor dem Verkaufsstart:
+  1. Das PDF fertigstellen (ohne Produkt keine Verkaufsseite live schalten)
+  2. In Jotform das Zahlungsfeld mit deinem Stripe-Konto verbinden und einen Testkauf machen
+  3. In Jotform die Autoresponder-E-Mail mit PDF-Anhang oder Download-Link einrichten
+     (gilt zugleich als Vertragsbestätigung auf dauerhaftem Datenträger)
+  4. Rechnungen: Stripe Invoicing oder ein Buchhaltungstool (z. B. lexoffice, sevDesk) anbinden
+  5. AGB und Widerrufsbelehrung (`/agb/`, `/widerruf/`) rechtlich prüfen lassen
+  6. Jotform auf EU-Datenzentrum umstellen und in der Datenschutzerklärung bestätigen
+
 ## Inhalte pflegen
 
 - Lebensmittel und pH-Werte: `src/data/foods.ts`

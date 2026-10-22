@@ -49,6 +49,11 @@ const canonical = new URL(path, Astro.site);
                 </li>
               ))
             }
+            <li>
+              <a class="nav-product" href="/reflux-reset/" aria-current={path.startsWith('/reflux-reset/') ? 'page' : undefined}>
+                {site.product.name}
+              </a>
+            </li>
           </ul>
         </nav>
         <details class="nav-mobile">
@@ -69,6 +74,7 @@ const canonical = new URL(path, Astro.site);
                   </li>
                 ))
               }
+              <li><a class="nav-product" href="/reflux-reset/">{site.product.name}</a></li>
             </ul>
           </nav>
         </details>
@@ -104,6 +110,8 @@ const canonical = new URL(path, Astro.site);
             <li><a href="/impressum/">Impressum</a></li>
             <li><a href="/datenschutz/">Datenschutz</a></li>
             <li><a href="/haftungsausschluss/">Haftungsausschluss &amp; Werbung</a></li>
+            <li><a href="/agb/">AGB</a></li>
+            <li><a href="/widerruf/">Widerrufsbelehrung</a></li>
           </ul>
         </nav>
       </div>
@@ -173,6 +181,14 @@ const canonical = new URL(path, Astro.site);
     background: var(--ink);
     color: var(--ground);
   }
+  .nav-desktop .nav-product,
+  .nav-mobile .nav-product {
+    background: var(--ph-5);
+    color: #10282b;
+  }
+  .nav-desktop .nav-product:hover {
+    background: #f0d84a;
+  }
   .nav-mobile {
     display: none;
     position: relative;
@@ -211,7 +227,7 @@ const canonical = new URL(path, Astro.site);
   .nav-mobile a[aria-current='page'] {
     background: color-mix(in oklab, var(--accent) 14%, transparent);
   }
-  @media (max-width: 62rem) {
+  @media (max-width: 72rem) {
     .nav-desktop {
       display: none;
     }
